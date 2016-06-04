@@ -7,6 +7,15 @@ if(Meteor.isClient){
     		return Todos.find({}, { sort: { createdAt: -1}});
     	}
     });
+    Template.todoItem.events({
+    	"click .delete-todo": function(event){
+    		event.preventDefault();
+    		let documentId = this._id;
+    		let confirm = window.confirm("Delete this task?");
+    		if(confirm)
+    			Todos.remove({ _id: documentId });
+    	}
+    });
     Template.addTodo.events({
     	"submit form": function(event){
     		event.preventDefault();
