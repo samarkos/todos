@@ -58,6 +58,14 @@ if(Meteor.isClient){
     		$("[name='todoName']").val("");
     	}
     });
+    Template.todosCount.helpers({
+    	totalTodos(){
+    		return Todos.find().count();
+    	},
+    	completedTodos(){
+    		return Todos.find({ completed: true }).count();
+    	}
+    });
 }
 
 if(Meteor.isServer){
