@@ -7,6 +7,15 @@ if(Meteor.isClient){
     		return Todos.find({}, { sort: { createdAt: -1}});
     	}
     });
+    Template.todoItem.helpers({
+    	checked(){
+    		let isCompleted = this.completed;
+    		if(isCompleted)
+    			return "checked";
+    		else
+    			return "";
+    	}
+    });
     Template.todoItem.events({
     	"click .delete-todo": function(event){
     		event.preventDefault();
@@ -23,6 +32,17 @@ if(Meteor.isClient){
 	    		let todoItem = $(event.target).val();
 	    		Todos.update({ _id: documentId }, { $set: {name: todoItem }});	    		
     		}
+    	},
+    	"change [type=checkbox]": function(){
+    		let documentId = this._id;
+    		let isCompleted = this.completed;
+    		if(isCompleted){
+		        Todos.update({ _id: documentId }, {$set: { completed: false }});
+		        console.log("Task marked as incomplete.");
+		    } else {
+		        Todos.update({ _id: documentId }, {$set: { completed: true }});
+		        console.log("Task marked as complete.");
+		    }
     	}
     });
     Template.addTodo.events({
