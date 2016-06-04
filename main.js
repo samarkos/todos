@@ -16,10 +16,13 @@ if(Meteor.isClient){
     			Todos.remove({ _id: documentId });
     	},
     	"keyup [name=todoItem]": function(event){
-    		let documentId = this._id;
-    		let todoItem = $(event.target).val();    		
-    		Todos.update({ _id: documentId }, { $set: {name: todoItem }});
-    		console.log("Task changed to: " + todoItem);
+    		if(event.which == 13 || event.which == 27) {
+    			$(event.target).blur();
+    		} else {
+    			let documentId = this._id;
+	    		let todoItem = $(event.target).val();
+	    		Todos.update({ _id: documentId }, { $set: {name: todoItem }});	    		
+    		}
     	}
     });
     Template.addTodo.events({
