@@ -14,6 +14,12 @@ if(Meteor.isClient){
     		let confirm = window.confirm("Delete this task?");
     		if(confirm)
     			Todos.remove({ _id: documentId });
+    	},
+    	"keyup [name=todoItem]": function(event){
+    		let documentId = this._id;
+    		let todoItem = $(event.target).val();    		
+    		Todos.update({ _id: documentId }, { $set: {name: todoItem }});
+    		console.log("Task changed to: " + todoItem);
     	}
     });
     Template.addTodo.events({
