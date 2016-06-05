@@ -1,5 +1,4 @@
 
-
 <template name="todos">
     {{> addTodo}}
     <ul>
@@ -31,10 +30,27 @@
     {{/if}}
 </template>
 
+<template name="addList">
+    <form>Create a list:
+        <input type="text" placeholder="List name here..." name="listName">
+    </form>
+</template>
+
+<template name="lists">
+    <h2>Lists</h2>
+    {{> addList}}
+    <ul>
+        {{#each list}}
+            <li>{{name}}</li>
+        {{/each}}
+    </ul>
+</template>
+
 <!--Iron Router templates -->
 <template name="main">
     <h1>Todos</h1>
     {{> navigation}}
+    {{> lists}}
     {{> yield}}
     <hr />
     <p>Copyright &copy; Todos, 2016.</p>
