@@ -16,6 +16,12 @@ Router.route('/register');
 
 Router.route('/login');
 
+Router.route('/list/:_id', {
+	data(){
+		//console.log(this.params.someParameter);
+	}
+});
+
 if(Meteor.isClient){
     // client code goes here
     Template.todos.helpers({
