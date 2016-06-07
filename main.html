@@ -1,5 +1,5 @@
 
-<template name="todos">
+<template name="todos">    
     {{> addTodo}}
     <ul>
         {{#each todo}}
@@ -78,4 +78,5 @@
 
 <template name="listPage">
     <h2>Tasks: {{name}}</h2>
+    {{> todos}}
 </template>

@@ -29,7 +29,8 @@ if(Meteor.isClient){
     // client code goes here
     Template.todos.helpers({
     	todo(){
-    		return Todos.find({}, { sort: { createdAt: -1}});
+            var currentList = this._id;
+    		return Todos.find({ listId: currentList }, { sort: { createdAt: -1}});
     	}
     });
     Template.todoItem.helpers({
@@ -75,10 +76,12 @@ if(Meteor.isClient){
     		event.preventDefault();
     		let todoName = $("[name='todoName']").val(); // jQuery
     		//let todoName = event.target.todoName.value; // non jQuery
+            var currentList = this._id;
     		Todos.insert({
     			name: todoName,
     			completed: false,
-    			createdAt: new Date()
+    			createdAt: new Date(),
+                listId: currentList
     		});
     		$("[name='todoName']").val("");
     	}
