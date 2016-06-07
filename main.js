@@ -115,6 +115,18 @@ if(Meteor.isClient){
     		return Lists.find({}, { sort: { name: 1 }});
     	}
     });
+    Template.register.events({
+        "submit form": function(event){
+            event.preventDefault();
+            let email = $("[name=email]").val();
+            let password = $("[name=password]").val();
+            Accounts.createUser({
+                email,
+                password
+            });
+            Router.go('home');
+        }
+    });
 }
 
 if(Meteor.isServer){
