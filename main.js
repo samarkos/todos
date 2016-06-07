@@ -17,6 +17,7 @@ Router.route('/register');
 Router.route('/login');
 
 Router.route('/list/:_id', {
+    name: 'listPage',
     template: 'listPage',
 	data(){
 		//console.log(this.params.someParameter);
