@@ -22,8 +22,17 @@ Router.route('/list/:_id', {
 	data(){
 		//console.log(this.params.someParameter);
         let currentList = this.params._id;
-        return Lists.findOne({ _id: currentList });
-	}
+        let currentUser = Meteor.userId();
+        return Lists.findOne({ _id: currentList, createdBy: currentUser });
+	},
+    onBeforeAction(){
+        let currentUser = Meteor.userId();
+        if (currentUser) {
+            this.next(); // “Just let this route do what it would normally do.” 
+        } else {
+            this.render('login');
+        }
+    }
 });
 
 if(Meteor.isClient){
