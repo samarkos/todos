@@ -31,6 +31,7 @@ Router.route('/list/:_id', {
     },
     onRerun(){
         console.log("You triggered 'onRerun' for 'listPage' route.");
+        this.next();
     },
     onBeforeAction(){
         console.log("You triggered 'onBeforeAction' for 'listPage' route.");
@@ -174,10 +175,14 @@ if(Meteor.isClient){
             var email = $("[name=email]").val();
             var password = $("[name=password]").val();
             Meteor.loginWithPassword(email, password, function(error){
-                if(error) 
+                if(error){
                     console.log(error.reason);
-                else
-                    Router.go('home');
+                } else {
+                    let currentRoute = Router.current().route.getName();
+                    if(currentRoute == 'login'){
+                        Router.go('home');                    
+                    } 
+                }
             });
         }
     });
