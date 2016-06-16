@@ -25,13 +25,27 @@ Router.route('/list/:_id', {
         let currentUser = Meteor.userId();
         return Lists.findOne({ _id: currentList, createdBy: currentUser });
 	},
+    onRun(){
+        console.log("You triggered 'onRun' for 'listPage' route.");
+        this.next();
+    },
+    onRerun(){
+        console.log("You triggered 'onRerun' for 'listPage' route.");
+    },
     onBeforeAction(){
+        console.log("You triggered 'onBeforeAction' for 'listPage' route.");
         let currentUser = Meteor.userId();
         if (currentUser) {
             this.next(); // “Just let this route do what it would normally do.” 
         } else {
             this.render('login');
         }
+    },
+    onAfterAction(){
+        console.log("You triggered 'onAfterAction' for 'listPage' route.");
+    },
+    onStop(){
+        console.log("You triggered 'onStop' for 'listPage' route.");
     }
 });
 
